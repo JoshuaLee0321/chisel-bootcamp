@@ -1,0 +1,112 @@
+digraph Arbiter {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_Arbiter {
+  label="Arbiter"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_Arbiter_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_Arbiter_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_Arbiter_io_fifo_valid [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_fifo_valid" rank="0"]
+     
+cluster_Arbiter_io_fifo_data [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_fifo_data" rank="0"]
+     
+cluster_Arbiter_io_pe0_ready [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_pe0_ready" rank="0"]
+     
+cluster_Arbiter_io_pe1_ready [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_pe1_ready" rank="0"]
+     
+cluster_Arbiter_io_fifo_ready [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_fifo_ready" rank="1000"]
+     
+cluster_Arbiter_io_pe0_valid [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_pe0_valid" rank="1000"]
+     
+cluster_Arbiter_io_pe0_data [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_pe0_data" rank="1000"]
+     
+cluster_Arbiter_io_pe1_valid [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_pe1_valid" rank="1000"]
+     
+cluster_Arbiter_io_pe1_data [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_pe1_data" rank="1000"]
+     
+
+op_or_14 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > or </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_and_15 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > and </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_and_16 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > and </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_and_17 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > and </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_not_18 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD > not </TD>
+    <TD PORT="out">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+  op_or_14:out -> cluster_Arbiter_io_fifo_ready
+  op_and_17:out -> op_and_16:in1
+  cluster_Arbiter_io_fifo_data -> cluster_Arbiter_io_pe1_data
+  op_and_16:out -> cluster_Arbiter_io_pe1_valid
+  cluster_Arbiter_io_fifo_valid -> op_and_17:in1
+  cluster_Arbiter_io_pe1_ready -> op_or_14:in2
+  cluster_Arbiter_io_pe0_ready -> op_and_15:in2
+  cluster_Arbiter_io_pe0_ready -> op_not_18:in1
+  op_and_15:out -> cluster_Arbiter_io_pe0_valid
+  cluster_Arbiter_io_pe0_ready -> op_or_14:in1
+  op_not_18:out -> op_and_16:in2
+  cluster_Arbiter_io_fifo_valid -> op_and_15:in1
+  cluster_Arbiter_io_pe1_ready -> op_and_17:in2
+  cluster_Arbiter_io_fifo_data -> cluster_Arbiter_io_pe0_data
+  
+  
+}
+     
+}

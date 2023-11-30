@@ -1,0 +1,84 @@
+digraph MAC {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_MAC {
+  label="MAC"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_MAC_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_MAC_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_MAC_io_in_a [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in_a" rank="0"]
+     
+cluster_MAC_io_in_b [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in_b" rank="0"]
+     
+cluster_MAC_io_in_c [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in_c" rank="0"]
+     
+cluster_MAC_io_out [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out" rank="1000"]
+     
+cluster_MAC__T [label = "_T" shape="rectangle"]; 
+
+op_mul_10 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > mul </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_tail_11 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > tail </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD>1</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_add_12 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > add </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_pad_13 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD > pad </TD>
+    <TD PORT="out">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+  cluster_MAC_io_in_a -> op_mul_10:in1
+  op_pad_13:out -> op_add_12:in2
+  op_add_12:out -> op_tail_11:in1
+  op_mul_10:out -> cluster_MAC__T
+  cluster_MAC_io_in_c -> op_pad_13:in1
+  cluster_MAC__T -> op_add_12:in1
+  cluster_MAC_io_in_b -> op_mul_10:in2
+  op_tail_11:out -> cluster_MAC_io_out
+  
+  
+}
+     
+}

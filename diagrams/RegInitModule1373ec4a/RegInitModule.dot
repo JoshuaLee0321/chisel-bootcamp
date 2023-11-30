@@ -1,0 +1,77 @@
+digraph RegInitModule {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_RegInitModule {
+  label="RegInitModule"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_RegInitModule_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_RegInitModule_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_RegInitModule_io_in [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in" rank="0"]
+     
+cluster_RegInitModule_io_out [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out" rank="1000"]
+     
+struct_cluster_RegInitModule_register [shape="plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FFE4B5">
+  <TR>
+    <TD PORT="in">&#x25cf;</TD>
+    <TD>register</TD>
+    <TD PORT="out">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+cluster_RegInitModule__T [label = "_T" shape="rectangle"]; 
+
+op_add_5 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > add </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">1</TD>
+  </TR>
+</TABLE>>];
+       
+
+mux_1523396448 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#AFEEEE">
+  <TR>
+    <TD PORT="in1">0</TD>
+    <TD ROWSPAN="2" PORT="select">a?</TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_tail_6 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > tail </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD>1</TD>
+  </TR>
+</TABLE>>];
+       
+
+  op_tail_6:out -> mux_1523396448:in2
+  cluster_RegInitModule__T -> op_tail_6:in1
+  cluster_RegInitModule_io_in -> op_add_5:in1
+  mux_1523396448:out -> struct_cluster_RegInitModule_register:in
+  cluster_RegInitModule_reset -> mux_1523396448:select
+  struct_cluster_RegInitModule_register:out -> cluster_RegInitModule_io_out
+  op_add_5:out -> cluster_RegInitModule__T
+  
+  
+}
+     
+}

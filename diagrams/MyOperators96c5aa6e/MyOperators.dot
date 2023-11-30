@@ -1,0 +1,96 @@
+digraph MyOperators {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_MyOperators {
+  label="MyOperators"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_MyOperators_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_MyOperators_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_MyOperators_io_in [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in" rank="0"]
+     
+cluster_MyOperators_io_out_add [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out_add" rank="1000"]
+     
+cluster_MyOperators_io_out_sub [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out_sub" rank="1000"]
+     
+cluster_MyOperators_io_out_mul [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out_mul" rank="1000"]
+     
+cluster_MyOperators_lit4 [shape="circle" style="filled" BGCOLOR="#C0C0C0" label="5"]
+     
+
+op_pad_5 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD > pad </TD>
+    <TD PORT="out">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_tail_6 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > tail </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD>1</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_sub_7 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">2</TD>
+    <TD ROWSPAN="2" > sub </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">1</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_bits_8 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > bits </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD>(3, 0)</TD>
+  </TR>
+</TABLE>>];
+       
+
+op_mul_9 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">4</TD>
+    <TD ROWSPAN="2" > mul </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">2</TD>
+  </TR>
+</TABLE>>];
+       
+
+  op_mul_9:out -> op_bits_8:in1
+  op_sub_7:out -> op_tail_6:in1
+  op_bits_8:out -> cluster_MyOperators_io_out_mul
+  cluster_MyOperators_lit4 -> cluster_MyOperators_io_out_add
+  op_tail_6:out -> op_pad_5:in1
+  op_pad_5:out -> cluster_MyOperators_io_out_sub
+  
+  
+}
+     
+}

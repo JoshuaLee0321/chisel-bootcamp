@@ -1,0 +1,62 @@
+digraph RegNextModule {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_RegNextModule {
+  label="RegNextModule"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_RegNextModule_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_RegNextModule_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_RegNextModule_io_in [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in" rank="0"]
+     
+cluster_RegNextModule_io_out [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out" rank="1000"]
+     
+cluster_RegNextModule__T [label = "_T" shape="rectangle"]; 
+
+op_add_3 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > add </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD PORT="in2">1</TD>
+  </TR>
+</TABLE>>];
+       
+struct_cluster_RegNextModule_REG [shape="plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FFE4B5">
+  <TR>
+    <TD PORT="in">&#x25cf;</TD>
+    <TD>REG</TD>
+    <TD PORT="out">&#x25cf;</TD>
+  </TR>
+</TABLE>>];
+
+op_tail_4 [shape = "plaintext" label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#D8BFD8">
+  <TR>
+    <TD PORT="in1">&#x25cf;</TD>
+    <TD ROWSPAN="2" > tail </TD>
+    <TD ROWSPAN="2" PORT="out">&#x25cf;</TD>
+  </TR>
+  <TR>
+    <TD>1</TD>
+  </TR>
+</TABLE>>];
+       
+
+  op_tail_4:out -> struct_cluster_RegNextModule_REG:in
+  struct_cluster_RegNextModule_REG:out -> cluster_RegNextModule_io_out
+  op_add_3:out -> cluster_RegNextModule__T
+  cluster_RegNextModule__T -> op_tail_4:in1
+  cluster_RegNextModule_io_in -> op_add_3:in1
+  
+  
+}
+     
+}

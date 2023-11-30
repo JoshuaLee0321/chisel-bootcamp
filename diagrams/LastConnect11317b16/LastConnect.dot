@@ -1,0 +1,25 @@
+digraph LastConnect {
+stylesheet = "styles.css"
+rankdir="LR" 
+
+subgraph cluster_LastConnect {
+  label="LastConnect"
+  URL=""
+  bgcolor="#FFF8DC"
+  cluster_LastConnect_clock [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="clock" rank="0"]
+     
+cluster_LastConnect_reset [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="reset" rank="0"]
+     
+cluster_LastConnect_io_in [shape = "rectangle" style="filled" fillcolor="#CCCCCC" label="io_in" rank="0"]
+     
+cluster_LastConnect_io_out [shape = "rectangle" style="filled" fillcolor="#E0FFFF" label="io_out" rank="1000"]
+     
+cluster_LastConnect_lit1 [shape="circle" style="filled" BGCOLOR="#C0C0C0" label="4"]
+     
+
+  cluster_LastConnect_lit1 -> cluster_LastConnect_io_out
+  
+  
+}
+     
+}
